@@ -92,8 +92,8 @@ event is `STAGING_QUEUED`. Consulting the SD2E Logtrail, I can see that the `STA
 ```shell
 $ python add_notify_reactor.py data-sd2e-community /sample/tacc-cloud gO0JeWaBM4p3J
 assocationIds = 1573501675986751976-242ac114-0001-002
-notification id: 1447480736450407960-242ac118-0001-011
-notification url: https://requestbin.agaveapi.co/1n1rknb1
+notification id: 5654750370458636776-242ac118-0001-011
+notification url: https://api.sd2e.org/actors/v2/gO0JeWaBM4p3J/messages?x-nonce=SD2E_OrMp4A3qNBPVa
 ```
 
 # Upload a new file to the destination
