@@ -106,6 +106,5 @@ $ files-upload -F $(python get_cat.py) -S data-sd2e-community /sample/tacc-cloud
 
 # Other events
 
-Delete one of the cat pictures you've uploaded. The requestbin as well as the
-Reactor should trigger.
+I have not been able to trigger events on a directory by deleting or changing pems on files contained within it
 
