@@ -14,8 +14,8 @@ events = '*'
 assoc_ids = None
 dest_uri = None
 
-# api_server = 'https://agave.iplantc.org'
-api_server = 'https://api.sd2e.org'
+api_server = 'https://agave.iplantc.org'
+#api_server = 'https://api.sd2e.org'
 
 
 def get_webhook(ag, actor_id):
