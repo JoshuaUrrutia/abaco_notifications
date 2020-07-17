@@ -1,7 +1,7 @@
 import sys
 import json
 import re
-import urlparse
+from urllib.parse import urlparse, parse_qs
 import requests
 
 from agavepy.agave import Agave
@@ -38,8 +38,8 @@ try:
     meta = listing['_links'].get('metadata', {})
     if 'href' in meta:
         muri = meta['href']
-        parsed = urlparse.urlparse(muri)
-        assoc_ids = urlparse.parse_qs(parsed.query)['q'][0].split(':')[1]
+        parsed = urlparse(muri)
+        assoc_ids = parse_qs(parsed.query)['q'][0].split(':')[1]
         assoc_ids = re.sub(r'[^.a-zA-Z0-9-]', '', assoc_ids)
         print('assocationIds = {}'.format(assoc_ids))
 except HTTPError as h:

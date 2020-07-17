@@ -1,7 +1,9 @@
 import sys
 import json
 import re
-import urlparse
+#import urlparse
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 
 from agavepy.agave import Agave
 from requests.exceptions import HTTPError
@@ -14,7 +16,8 @@ events = '*'
 assoc_ids = None
 dest_uri = None
 
-api_server = 'https://agave.iplantc.org'
+api_server = 'https://portals-api.tacc.utexas.edu/'
+#api_server = 'https://agave.iplantc.org'
 #api_server = 'https://api.sd2e.org'
 
 
@@ -58,8 +61,8 @@ try:
     meta = listing['_links'].get('metadata', {})
     if 'href' in meta:
         muri = meta['href']
-        parsed = urlparse.urlparse(muri)
-        assoc_ids = urlparse.parse_qs(parsed.query)['q'][0].split(':')[1]
+        parsed = urlparse(muri)
+        assoc_ids = parse_qs(parsed.query)['q'][0].split(':')[1]
         assoc_ids = re.sub(r'[^.a-zA-Z0-9-]', '', assoc_ids)
         print('assocationIds = {}'.format(assoc_ids))
 except HTTPError as h:
