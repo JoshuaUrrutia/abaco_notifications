@@ -7,6 +7,13 @@ import requests
 from agavepy.agave import Agave
 from requests.exceptions import HTTPError
 
+try:
+    ag = Agave.restore()
+except HTTPError as h:
+    raise h
+except Exception as e:
+    print("Unexpected error occurred: {}".format(e))
+
 system_id = sys.argv[1]
 file_path = sys.argv[2]
 events = '*'
@@ -16,19 +23,15 @@ dest_uri = None
 
 def get_requestbin():
     """Returns a temportary requestbin for API testing"""
-    r = requests.post('https://requestbin.agaveapi.co/api/v1/bins')
+    # create the post bin
+    r = requests.post('https://postb.in/api/bin')
     r.raise_for_status()
     body = r.json()
-    name = body.get('name')
-    return 'https://requestbin.agaveapi.co/' + name
+    #name = body.get('name')
+    binId = body.get('binId')
+    # return the request bin url
+    return 'https://postb.in/' + binId
 
-
-try:
-    ag = Agave.restore()
-except HTTPError as h:
-    raise h
-except Exception as e:
-    print("Unexpected error occurred: {}".format(e))
 
 try:
     listing = ag.files.list(systemId=system_id,
@@ -62,7 +65,8 @@ try:
     resp = ag.notifications.add(body=json.dumps(body))
     if 'id' in resp:
         print('notification id: {}'.format(resp.get('id', '')))
-        print('notification url: {}'.format(resp.get('url', '')))
+        # reformat the url to easily copy/paste into a browser
+        print('notification url: {}'.format('https://postb.in/b/' + resp.get('url', '').split('https://postb.in/')[-1]))
 except HTTPError as h:
     raise h
 except Exception as e:

@@ -20,6 +20,12 @@ api_server = 'https://portals-api.tacc.utexas.edu/'
 #api_server = 'https://agave.iplantc.org'
 #api_server = 'https://api.sd2e.org'
 
+try:
+    ag = Agave.restore()
+except HTTPError as h:
+    raise h
+except Exception as e:
+    print("Unexpected error occurred: {}".format(e))
 
 def get_webhook(ag, actor_id):
     """
@@ -45,13 +51,6 @@ def get_nonce(ag, actor_id):
     except Exception as e:
         raise e
 
-
-try:
-    ag = Agave.restore()
-except HTTPError as h:
-    raise h
-except Exception as e:
-    print("Unexpected error occurred: {}".format(e))
 
 try:
     listing = ag.files.list(systemId=system_id,
